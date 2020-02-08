@@ -1,0 +1,27 @@
+html,
+body {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+html {
+	overflow-x: hidden;
+}
+
+body {
+	background-color: $body-bg-color;
+	color: $color-dark;
+	font-size: $base-font-size;
+	font-family: $font-family-base;
+	font-weight: $body-font-weight;
+}
+
+
+/* Font Size on Mobile devices */
+@media (max-width: 479px) {
+	body {
+		font-size: $font-size-mobile;
+		line-height: $line-height-mobile;
+	}
+}

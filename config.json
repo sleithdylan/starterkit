@@ -1,0 +1,48 @@
+{
+	"PATH": {
+		"src": "src",
+		"dist": "build",
+		"src_js": "src/assets/js",
+		"dist_js": "build/assets/js",
+		"src_css": "src/assets/scss",
+		"dist_css": "build/assets/css",
+		"src_img": "src/assets/images",
+		"dist_img": "build/assets/images"
+	},
+	"SERVER": {
+		"port": 3000,
+		"injectChanges": true,
+		"server": {
+			"baseDir": "build"
+		},
+		"ghostMode": {
+			"clicks": false,
+			"forms": false,
+			"scroll": false
+		}
+	},
+	"AUTOPREFIXER": {
+		"browsers": [
+			"last 2 versions",
+			"IE 11",
+			"Firefox ESR"
+		]
+	},
+	"COPY": [
+		"src/**",
+		"!src/{data,helpers,layouts,pages,partials}",
+		"!src/{data,helpers,layouts,pages,partials}/**",
+		"!src/assets/{images,scss}",
+		"!src/assets/{images,scss}/**",
+		"!src/assets/vendor/bootstrap/scss",
+		"!src/assets/vendor/bootstrap/scss/**"
+	],
+	"FTP": {
+		"host": "",
+		"port": 21,
+		"user": "",
+		"password": "",
+		"localFiles": "build/**/*.*",
+		"remoteFolder": ""
+	}
+}

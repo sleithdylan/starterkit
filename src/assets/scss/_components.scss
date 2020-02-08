@@ -1,0 +1,13 @@
+.container {
+  h1 {
+    color: $color-primary;
+    font-family: $font-family-base;
+    font-size: 64px;
+  }
+
+  h3 {
+    padding-top: .5rem;
+    font-family: $font-family-accent;
+    font-size: $font-size-h3;
+  }
+}
