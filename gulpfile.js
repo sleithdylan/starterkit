@@ -6,6 +6,7 @@
 
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var babel = require('gulp-babel');
 var plumber = require('gulp-plumber');
 var notify = require('gulp-notify');
 var minifyJS = require('gulp-uglify');
@@ -141,20 +142,25 @@ gulp.task('sass', function() {
 		.pipe(browser.stream());
 });
 
-// Concatenate and minify JS.
+// Concatenate, minify and transpile JS.
 gulp.task('js', function() {
 	return gulp
-		.src([PATHS.src_js + '/core.js'])
+		.src([PATHS.src_js + '/main.js'])
 		.pipe(gulpIf(!PRODUCTION, sourcemaps.init()))
 		.pipe(includeJS())
-		.pipe(concatJS('core.js'))
+		.pipe(
+			babel({
+				presets: ['@babel/env']
+			})
+		)
+		.pipe(concatJS('main.js'))
 		.pipe(gulpIf(!PRODUCTION, sourcemaps.write('/maps')))
 		.pipe(gulpIf(PRODUCTION, minifyJS()))
 		.pipe(gulp.dest(PATHS.dist_js));
 });
 
 // Minify JS init.
-gulp.task('js-init', ['lint-js'], function() {
+gulp.task('js-init', function() {
 	return gulp
 		.src([PATHS.src_js + '/init.js'])
 		.pipe(gulpIf(PRODUCTION, minifyJS()))
@@ -163,16 +169,16 @@ gulp.task('js-init', ['lint-js'], function() {
 });
 
 // Check JS code for errors.
-gulp.task('lint-js', function() {
-	return gulp
-		.src([
-			PATHS.src_js + '/**/*.js',
-			'!' + PATHS.src_js + '/{cdn-fallback,vendor}/**/*'
-		])
-		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(jshint.reporter('fail')); // task fails on JSHint error
-});
+// gulp.task('lint-js', function() {
+// 	return gulp
+// 		.src([
+// 			PATHS.src_js + '/**/*.js',
+// 			'!' + PATHS.src_js + '/{cdn-fallback,vendor}/**/*'
+// 		])
+// 		.pipe(jshint())
+// 		.pipe(jshint.reporter('jshint-stylish'))
+// 		.pipe(jshint.reporter('fail')); // task fails on JSHint error
+// });
 
 // Creates sprites from SVG files.
 gulp.task('sprites', function() {
